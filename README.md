@@ -229,7 +229,7 @@ BCA (Data Science) Student
 
 Passionate about Full-Stack Web Development, Java, React, Node.js, and Software Engineering.
 
-GitHub: https://github.com/YOUR_USERNAME
+https://github.com/Themonsterk9/gringotts-wizarding-bank
 
 ---
 
