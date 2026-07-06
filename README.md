@@ -112,7 +112,7 @@ Gringotts Wizarding Bank/
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/gringotts-wizarding-bank.git
+git clone https://github.com/Themonsterk9/gringotts-wizarding-bank.git
 ```
 
 ### Install Dependencies
