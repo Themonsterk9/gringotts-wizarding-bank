@@ -1,0 +1,94 @@
+.notfound-page{
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:30px;
+}
+
+.notfound-card{
+
+    max-width:650px;
+
+    text-align:center;
+
+    padding:50px;
+
+    border-radius:22px;
+
+    background:rgba(18,18,28,.82);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,215,0,.25);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45),
+        0 0 30px rgba(255,215,0,.08);
+
+}
+
+.error-code{
+
+    font-size:7rem;
+
+    color:#FFD700;
+
+    margin-bottom:15px;
+
+    text-shadow:
+        0 0 20px rgba(255,215,0,.4);
+
+}
+
+.notfound-card h2{
+
+    color:white;
+
+    margin-bottom:20px;
+
+}
+
+.notfound-card p{
+
+    color:#cbd5e1;
+
+    font-size:18px;
+
+    line-height:1.7;
+
+}
+
+.notfound-buttons{
+
+    margin-top:40px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+@media(max-width:768px){
+
+.notfound-card{
+
+padding:35px 25px;
+
+}
+
+.error-code{
+
+font-size:5rem;
+
+}
+
+}

@@ -1,0 +1,351 @@
+/* ===========================================
+   Transactions Page
+=========================================== */
+
+.transactions-page {
+  width: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+/* ===========================================
+   Filters
+=========================================== */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 320px;
+  width: 100%;
+
+  padding: 12px 16px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  outline: none;
+
+  font-size: 15px;
+
+  transition: 0.3s;
+}
+
+.search-box:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 10px rgba(37, 99, 235, .15);
+}
+
+.filters select {
+  min-width: 170px;
+
+  padding: 12px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 10px;
+
+  background: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.filters select:focus {
+  border-color: #2563eb;
+}
+
+/* ===========================================
+   Table
+=========================================== */
+
+.table-container {
+
+  width: 100%;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  border-radius: 14px;
+
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+
+  background: white;
+
+  -webkit-overflow-scrolling: touch;
+
+}
+
+.transaction-table {
+
+  width: 100%;
+
+  min-width: 980px;
+
+  border-collapse: collapse;
+
+  table-layout: auto;
+
+  background: white;
+
+}
+
+.transaction-table thead tr {
+
+  background: #1f2937;
+
+}
+
+.transaction-table th {
+
+  padding: 16px;
+
+  color: white;
+
+  font-weight: 700;
+
+  border: 1px solid #374151;
+
+  white-space: nowrap;
+
+  text-align: center;
+
+}
+
+.transaction-table td {
+
+  padding: 16px;
+
+  border: 1px solid #e5e7eb;
+
+  text-align: center;
+
+  color: #111827;
+
+  white-space: nowrap;
+
+  vertical-align: middle;
+
+  transition: .25s;
+
+}
+
+.transaction-table tbody tr:nth-child(even){
+
+  background:#f8fafc;
+
+}
+
+.transaction-table tbody tr:hover{
+
+  background:#eef4ff;
+
+}
+
+/* ===========================================
+   Column Widths
+=========================================== */
+
+.transaction-table td:nth-child(1),
+.transaction-table th:nth-child(1){
+
+  min-width:180px;
+
+}
+
+.transaction-table td:nth-child(2),
+.transaction-table th:nth-child(2){
+
+  min-width:120px;
+
+}
+
+.transaction-table td:nth-child(3),
+.transaction-table th:nth-child(3){
+
+  min-width:200px;
+
+}
+
+.transaction-table td:nth-child(4),
+.transaction-table th:nth-child(4){
+
+  min-width:140px;
+
+}
+
+.transaction-table td:nth-child(5),
+.transaction-table th:nth-child(5){
+
+  min-width:200px;
+
+}
+
+.transaction-table td:nth-child(6),
+.transaction-table th:nth-child(6){
+
+  min-width:180px;
+
+}
+
+.transaction-table td:nth-child(7),
+.transaction-table th:nth-child(7){
+
+  min-width:170px;
+
+}
+
+/* ===========================================
+   Status
+=========================================== */
+
+.status {
+
+  display: inline-flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  min-width: 90px;
+
+  padding: 7px 16px;
+
+  border-radius: 50px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+}
+
+.status.success {
+
+  background: #dcfce7;
+
+  color: #166534;
+
+}
+
+.status.failed {
+
+  background: #fee2e2;
+
+  color: #991b1b;
+
+}
+
+.status.pending {
+
+  background: #fef3c7;
+
+  color: #92400e;
+
+}
+
+/* ===========================================
+   Download Button
+=========================================== */
+
+.receipt-btn {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  min-width: 140px;
+
+  padding: 10px 18px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #2563eb;
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition: .3s;
+
+}
+
+.receipt-btn:hover {
+
+  background: #1d4ed8;
+
+}
+
+.receipt-btn svg {
+
+  font-size: 14px;
+
+}
+
+/* ===========================================
+   Empty
+=========================================== */
+
+.no-data {
+
+  padding: 40px;
+
+  text-align: center;
+
+  color: #6b7280;
+
+  font-size: 18px;
+
+}
+
+/* ===========================================
+   Responsive
+=========================================== */
+
+@media (max-width: 900px) {
+
+  .transactions-page {
+
+    padding: 15px;
+
+  }
+
+  .filters {
+
+    flex-direction: column;
+
+  }
+
+  .search-box {
+
+    min-width: 100%;
+
+  }
+
+  .filters select {
+
+    width: 100%;
+
+  }
+
+}

@@ -1,0 +1,89 @@
+.security-page{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    padding:40px;
+
+}
+
+.security-page h1{
+
+    color:#FFD700;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+}
+
+.security-subtitle{
+
+    text-align:center;
+
+    color:#bbb;
+
+    margin-bottom:40px;
+
+}
+
+.security-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+    padding:25px;
+
+    border-radius:16px;
+
+    background:#1f2937;
+
+    border:1px solid rgba(255,215,0,.15);
+
+}
+
+.security-card h2{
+
+    color:#FFD700;
+
+    margin-bottom:10px;
+
+}
+
+.security-card p{
+
+    color:#cbd5e1;
+
+}
+
+.security-card button{
+
+    padding:12px 24px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.security-card button:disabled{
+
+    background:#6b7280;
+
+    cursor:not-allowed;
+
+}

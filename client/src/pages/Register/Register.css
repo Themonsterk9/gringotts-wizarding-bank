@@ -1,0 +1,193 @@
+/* ===========================================
+   Register Page
+=========================================== */
+
+.register-page{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+    box-sizing:border-box;
+
+}
+
+.register-card{
+
+    width:100%;
+
+    max-width:430px;
+
+    padding:40px;
+
+    border-radius:22px;
+
+    background:rgba(18,18,28,.82);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,215,0,.25);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45),
+        0 0 30px rgba(255,215,0,.08);
+
+}
+
+.register-title{
+
+    text-align:center;
+
+    color:#FFD700;
+
+    font-size:2rem;
+
+    margin-bottom:10px;
+
+}
+
+.register-subtitle{
+
+    text-align:center;
+
+    color:#d1d5db;
+
+    margin-bottom:30px;
+
+}
+
+.register-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.register-form input{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    border:1px solid rgba(255,215,0,.25);
+
+    background:#2a2a36;
+
+    color:white;
+
+    font-size:16px;
+
+    box-sizing:border-box;
+
+}
+
+.register-form input::placeholder{
+
+    color:rgba(255,255,255,.7);
+
+}
+
+.register-form input:focus{
+
+    outline:none;
+
+    border-color:#FFD700;
+
+    box-shadow:0 0 15px rgba(255,215,0,.2);
+
+}
+
+.register-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:linear-gradient(135deg,#FFD700,#B8860B);
+
+    color:#111;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+.register-btn:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+}
+
+.login-link{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    color:#ddd;
+
+}
+
+.login-link a{
+
+    color:#FFD700;
+
+    font-weight:bold;
+
+    text-decoration:none;
+
+}
+
+.login-link a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ===========================================
+   Back To Home
+=========================================== */
+
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #FFD700;
+
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  margin-bottom: 20px;
+
+  transition: all 0.3s ease;
+}
+
+.back-home:hover {
+  color: #ffffff;
+  transform: translateX(-5px);
+}

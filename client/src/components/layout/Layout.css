@@ -1,0 +1,162 @@
+/* ===========================================
+   Layout
+=========================================== */
+
+.layout {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  background: transparent;
+}
+
+/* ===========================================
+   Navbar
+=========================================== */
+
+.navbar {
+  height: 70px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 30px;
+
+  background: rgba(17, 24, 39, 0.92);
+  backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid rgba(255,255,255,.08);
+
+  color: white;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* ===========================================
+   Layout Container
+=========================================== */
+
+.layout-container {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+/* ===========================================
+   Sidebar
+=========================================== */
+
+.sidebar {
+  flex: 0 0 250px;
+  width: 250px;
+
+  min-height: calc(100vh - 70px);
+
+  background: rgba(31,41,55,.92);
+  backdrop-filter: blur(16px);
+
+  border-right: 1px solid rgba(255,255,255,.08);
+
+  padding: 25px;
+
+  color: white;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 18px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  transition: .3s;
+}
+
+.sidebar a:hover {
+  color: #FFD700;
+}
+
+/* ===========================================
+   Main Content
+=========================================== */
+
+.main-content {
+  flex: 1;
+  width: 100%;
+
+  padding: 35px;
+
+  overflow-x: hidden;
+
+  background: transparent;
+}
+
+/* ===========================================
+   Dark Theme
+=========================================== */
+
+.dark-theme {
+  color: #f9fafb;
+}
+
+.dark-theme .main-content {
+  background: transparent;
+}
+
+.dark-theme input,
+.dark-theme textarea,
+.dark-theme select {
+  background: #374151;
+  color: white;
+  border: 1px solid #4b5563;
+}
+
+.dark-theme input::placeholder,
+.dark-theme textarea::placeholder {
+  color: #d1d5db;
+}
+
+.dark-theme table {
+  background: #1f2937;
+}
+
+.dark-theme th {
+  background: #111827;
+}
+
+.dark-theme td {
+  border-color: #374151;
+}
+
+/* ===========================================
+   Responsive
+=========================================== */
+
+@media (max-width: 900px) {
+
+  .layout-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex: none;
+    min-height: auto;
+  }
+
+  .main-content {
+    width: 100%;
+    padding: 20px;
+  }
+
+}

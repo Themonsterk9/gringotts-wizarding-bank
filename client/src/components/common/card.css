@@ -1,0 +1,57 @@
+.card {
+
+  width: 100%;
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  background: rgba(255,255,255,.96);
+
+  border-radius: 18px;
+
+  padding: 25px;
+
+  border: 1px solid rgba(255,255,255,.15);
+
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
+
+  transition: .3s;
+
+}
+
+.card:hover{
+
+  box-shadow:0 20px 45px rgba(0,0,0,.15);
+
+}
+
+.card h3{
+
+  margin-bottom:25px;
+
+  text-align:center;
+
+  font-size:30px;
+
+  color:#111827;
+
+  font-weight:700;
+
+}
+
+.dark-theme .card{
+
+  background:rgba(31,41,55,.95);
+
+  color:white;
+
+  border:1px solid rgba(255,255,255,.08);
+
+}
+
+.dark-theme .card h3{
+
+  color:#FFD700;
+
+}

@@ -1,0 +1,143 @@
+.transfer-page{
+
+    max-width:700px;
+
+    margin:0 auto;
+
+    padding:20px;
+
+}
+
+.transfer-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+}
+
+.transfer-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.transfer-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.transfer-btn:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+}
+
+.dark-theme .transfer-form{
+
+    color:white;
+
+}
+
+@media(max-width:768px){
+
+.transfer-page{
+
+padding:10px;
+
+}
+
+}
+
+.lookup-loading{
+    margin-top:8px;
+    color:#2563eb;
+    font-size:14px;
+    font-weight:600;
+}
+
+.lookup-error{
+    margin-top:8px;
+    color:#dc2626;
+    font-size:14px;
+    font-weight:600;
+}
+
+.recipient-card{
+    margin:18px 0;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    background:#f0fdf4;
+
+    border:1px solid #22c55e;
+
+    animation:fadeIn .25s ease;
+}
+
+.recipient-card h4{
+    margin-bottom:12px;
+    color:#166534;
+}
+
+.recipient-card p{
+    margin:6px 0;
+}
+
+.recipient-status{
+    color:#16a34a;
+    font-weight:700;
+}
+
+.dark-theme .recipient-card{
+    background:#052e16;
+    border-color:#16a34a;
+}
+
+.dark-theme .recipient-card h4,
+.dark-theme .recipient-card p{
+    color:#f9fafb;
+}
+
+@keyframes fadeIn{
+
+from{
+    opacity:0;
+    transform:translateY(8px);
+}
+
+to{
+    opacity:1;
+    transform:translateY(0);
+}
+
+}

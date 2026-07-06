@@ -1,0 +1,62 @@
+/* ===========================================
+   Twinkling Stars
+=========================================== */
+
+.stars-container {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: -80;
+
+}
+
+.star{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:white;
+
+    box-shadow:
+        0 0 6px rgba(255,255,255,.8),
+        0 0 15px rgba(255,255,255,.3);
+
+    animation:
+        twinkle ease-in-out infinite;
+
+}
+
+@keyframes twinkle{
+
+    0%{
+
+        opacity:.15;
+
+        transform:scale(.4);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:scale(1.5);
+
+    }
+
+    100%{
+
+        opacity:.15;
+
+        transform:scale(.4);
+
+    }
+
+}

@@ -1,0 +1,90 @@
+/* ===============================
+   Animated Background
+================================= */
+
+.animated-bg{
+    position:relative;
+
+    width:100%;
+
+    min-height:100vh;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(circle at top,#243b55 0%,#141e30 45%,#090d18 100%);
+
+}
+
+/* Gold magical glow */
+
+.gradient-layer{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,215,0,.08),
+            transparent 35%
+        );
+
+    pointer-events:none;
+
+}
+
+/* Content */
+
+.content-layer{
+
+    position:relative;
+
+    z-index:10;
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    box-sizing:border-box;
+
+}
+
+/* Floating particle layers */
+
+.particles-layer,
+.coins-layer,
+.fog-layer{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+}
+
+/* Smooth dark transition */
+
+.dark-theme{
+
+    color:white;
+
+}
+
+/* Better scrolling */
+
+body{
+
+    overflow-x:hidden;
+
+}

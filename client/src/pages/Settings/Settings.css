@@ -1,0 +1,271 @@
+.settings-page {
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+}
+
+.settings-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+}
+
+.setting-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+
+    transition: all .3s ease;
+
+}
+
+.setting-item:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.12);
+
+}
+
+.setting-item div {
+
+    flex: 1;
+
+}
+
+.setting-item h3 {
+
+    margin: 0 0 8px;
+
+    font-size: 20px;
+
+    color: #111827;
+
+    font-weight: 700;
+
+}
+
+.setting-item p {
+
+    margin: 0;
+
+    color: #6b7280;
+
+    line-height: 1.5;
+
+    font-size: 15px;
+
+}
+
+/* ---------------- Buttons ---------------- */
+
+.settings-btn {
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.settings-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(37,99,235,.25);
+
+}
+
+.settings-btn.secondary {
+
+    background: linear-gradient(
+        135deg,
+        #6b7280,
+        #4b5563
+    );
+
+}
+
+.settings-btn.secondary:hover {
+
+    box-shadow: 0 8px 20px rgba(107,114,128,.25);
+
+}
+
+/* ---------------- Toggle Switch ---------------- */
+
+.switch {
+
+    position: relative;
+
+    width: 62px;
+
+    height: 34px;
+
+    display: inline-block;
+
+}
+
+.switch input {
+
+    display: none;
+
+}
+
+.slider {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: #d1d5db;
+
+    border-radius: 40px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.slider::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 26px;
+
+    height: 26px;
+
+    left: 4px;
+
+    bottom: 4px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: .3s;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+
+}
+
+.switch input:checked + .slider {
+
+    background: linear-gradient(
+        135deg,
+        #FFD700,
+        #B8860B
+    );
+
+}
+
+.switch input:checked + .slider::before {
+
+    transform: translateX(28px);
+
+}
+
+/* ---------------- Dark Theme ---------------- */
+
+.dark-theme .setting-item {
+
+    background: #1f2937;
+
+    border-color: #374151;
+
+}
+
+.dark-theme .setting-item h3 {
+
+    color: #FFD700;
+
+}
+
+.dark-theme .setting-item p {
+
+    color: #d1d5db;
+
+}
+
+.dark-theme .slider {
+
+    background: #4b5563;
+
+}
+
+.dark-theme .switch input:checked + .slider {
+
+    background: linear-gradient(
+        135deg,
+        #FFD700,
+        #B8860B
+    );
+
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width:768px) {
+
+.setting-item {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+}
+
+.settings-btn {
+
+    width: 100%;
+
+}
+
+.switch {
+
+    align-self: flex-end;
+
+}
+
+}

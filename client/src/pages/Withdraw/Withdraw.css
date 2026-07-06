@@ -1,0 +1,77 @@
+.withdraw-page{
+
+    max-width:700px;
+
+    margin:0 auto;
+
+    padding:20px;
+
+}
+
+.withdraw-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+}
+
+.withdraw-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #ef4444,
+        #b91c1c
+    );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.withdraw-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.withdraw-btn:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+}
+
+.dark-theme .withdraw-form{
+
+    color:white;
+
+}
+
+@media(max-width:768px){
+
+.withdraw-page{
+
+padding:10px;
+
+}
+
+}

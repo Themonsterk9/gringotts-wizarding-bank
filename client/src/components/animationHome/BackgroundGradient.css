@@ -1,0 +1,179 @@
+/* ===========================================
+   Magical Gradient Background
+=========================================== */
+
+.magic-gradient{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:-100;
+
+}
+
+/* ===========================================
+   Golden Orb
+=========================================== */
+
+.gradient-one{
+
+    position:absolute;
+
+    width:1000px;
+
+    height:1000px;
+
+    top:-350px;
+
+    left:-300px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(255,215,0,.18),
+        transparent 70%
+    );
+
+    filter:blur(70px);
+
+    animation:
+    floatOne 28s ease-in-out infinite;
+
+}
+
+/* ===========================================
+   Blue Orb
+=========================================== */
+
+.gradient-two{
+
+    position:absolute;
+
+    width:1200px;
+
+    height:1200px;
+
+    bottom:-500px;
+
+    right:-400px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(59,130,246,.14),
+        transparent 70%
+    );
+
+    filter:blur(80px);
+
+    animation:
+    floatTwo 35s ease-in-out infinite;
+
+}
+
+/* ===========================================
+   Purple Orb
+=========================================== */
+
+.gradient-three{
+
+    position:absolute;
+
+    width:800px;
+
+    height:800px;
+
+    top:45%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(168,85,247,.12),
+        transparent 70%
+    );
+
+    filter:blur(60px);
+
+    animation:
+    pulse 24s ease-in-out infinite;
+
+}
+
+/* ===========================================
+   Animations
+=========================================== */
+
+@keyframes floatOne{
+
+0%,100%{
+
+transform:
+translate(0,0)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translate(80px,60px)
+scale(1.08);
+
+}
+
+}
+
+@keyframes floatTwo{
+
+0%,100%{
+
+transform:
+translate(0,0)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translate(-100px,-50px)
+scale(1.05);
+
+}
+
+}
+
+@keyframes pulse{
+
+0%,100%{
+
+transform:
+translate(-50%,-50%)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translate(-50%,-50%)
+scale(1.18);
+
+}
+
+}

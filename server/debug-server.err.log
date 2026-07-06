@@ -1,0 +1,80 @@
+Register Error: MongoServerError: E11000 duplicate key error collection: gringotts.users index: accountNumber_1 dup key: { accountNumber: null }
+    at InsertOneOperation.handleOk (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at executeOperationWithRetries (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\execute_operation.js:194:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async executeOperation (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\execute_operation.js:83:16)
+    at async Collection.insertOne (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\collection.js:154:16)
+    at async model.$__save (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:434:16)
+    at async maybeTracedSave (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:675:7)
+    at async model.create (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:2763:5)
+    at async registerUser (file:///D:/Gringotts%20Wizarding%20Bank/server/controllers/authController.js:34:18) {
+  errorLabelSet: Set(0) {},
+  errorResponse: {
+    index: 0,
+    code: 11000,
+    errmsg: 'E11000 duplicate key error collection: gringotts.users index: accountNumber_1 dup key: { accountNumber: null }',
+    keyPattern: { accountNumber: 1 },
+    keyValue: { accountNumber: null }
+  },
+  index: 0,
+  code: 11000,
+  keyPattern: { accountNumber: 1 },
+  keyValue: { accountNumber: null }
+}
+Register Error: MongoServerError: E11000 duplicate key error collection: gringotts.users index: accountNumber_1 dup key: { accountNumber: null }
+    at InsertOneOperation.handleOk (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at executeOperationWithRetries (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\execute_operation.js:194:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async executeOperation (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\execute_operation.js:83:16)
+    at async Collection.insertOne (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\collection.js:154:16)
+    at async model.$__save (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:434:16)
+    at async maybeTracedSave (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:675:7)
+    at async model.create (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:2763:5)
+    at async registerUser (file:///D:/Gringotts%20Wizarding%20Bank/server/controllers/authController.js:34:18) {
+  errorLabelSet: Set(0) {},
+  errorResponse: {
+    index: 0,
+    code: 11000,
+    errmsg: 'E11000 duplicate key error collection: gringotts.users index: accountNumber_1 dup key: { accountNumber: null }',
+    keyPattern: { accountNumber: 1 },
+    keyValue: { accountNumber: null }
+  },
+  index: 0,
+  code: 11000,
+  keyPattern: { accountNumber: 1 },
+  keyValue: { accountNumber: null }
+}
+Register Error: MongoServerError: E11000 duplicate key error collection: gringotts.users index: accountNumber_1 dup key: { accountNumber: null }
+    at InsertOneOperation.handleOk (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at executeOperationWithRetries (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\execute_operation.js:194:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async executeOperation (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\operations\execute_operation.js:83:16)
+    at async Collection.insertOne (D:\Gringotts Wizarding Bank\server\node_modules\mongodb\lib\collection.js:154:16)
+    at async model.$__save (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:434:16)
+    at async maybeTracedSave (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:675:7)
+    at async model.create (D:\Gringotts Wizarding Bank\server\node_modules\mongoose\lib\model.js:2763:5)
+    at async registerUser (file:///D:/Gringotts%20Wizarding%20Bank/server/controllers/authController.js:34:18) {
+  errorLabelSet: Set(0) {},
+  errorResponse: {
+    index: 0,
+    code: 11000,
+    errmsg: 'E11000 duplicate key error collection: gringotts.users index: accountNumber_1 dup key: { accountNumber: null }',
+    keyPattern: { accountNumber: 1 },
+    keyValue: { accountNumber: null }
+  },
+  index: 0,
+  code: 11000,
+  keyPattern: { accountNumber: 1 },
+  keyValue: { accountNumber: null }
+}
+SyntaxError: Unexpected token '"', ""charts": "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (D:\Gringotts Wizarding Bank\server\node_modules\body-parser\lib\types\json.js:137:10)
+    at parse (D:\Gringotts Wizarding Bank\server\node_modules\body-parser\lib\types\json.js:86:15)
+    at D:\Gringotts Wizarding Bank\server\node_modules\body-parser\lib\read.js:162:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at invokeCallback (D:\Gringotts Wizarding Bank\server\node_modules\raw-body\index.js:238:16)
+    at done (D:\Gringotts Wizarding Bank\server\node_modules\raw-body\index.js:227:7)
+    at IncomingMessage.onEnd (D:\Gringotts Wizarding Bank\server\node_modules\raw-body\index.js:287:7)
+    at IncomingMessage.emit (node:events:509:28)
+    at endReadableNT (node:internal/streams/readable:1729:12)

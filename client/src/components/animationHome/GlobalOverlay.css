@@ -1,0 +1,23 @@
+/* ===========================================
+   Global Magical Overlay
+=========================================== */
+
+.magic-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:-95;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(3,8,20,.18),
+            rgba(5,10,20,.28),
+            rgba(2,6,15,.38)
+        );
+
+}

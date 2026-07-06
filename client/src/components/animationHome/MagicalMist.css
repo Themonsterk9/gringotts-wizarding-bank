@@ -1,0 +1,158 @@
+/* ===========================================
+   Magical Mist Layer
+=========================================== */
+
+.mist-container{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:-70;
+
+}
+
+/* ===========================================
+   Mist Base
+=========================================== */
+
+.mist{
+
+    position:absolute;
+
+    width:1400px;
+
+    height:700px;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    opacity:.10;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(255,255,255,.30),
+        rgba(160,200,255,.12),
+        transparent 70%
+    );
+
+}
+
+/* ===========================================
+   Left Mist
+=========================================== */
+
+.mist-one{
+
+    top:-150px;
+
+    left:-350px;
+
+    animation:
+    mistOne 65s linear infinite;
+
+}
+
+/* ===========================================
+   Right Mist
+=========================================== */
+
+.mist-two{
+
+    bottom:-250px;
+
+    right:-300px;
+
+    animation:
+    mistTwo 80s linear infinite;
+
+}
+
+/* ===========================================
+   Center Mist
+=========================================== */
+
+.mist-three{
+
+    top:25%;
+
+    left:30%;
+
+    animation:
+    mistThree 90s linear infinite;
+
+}
+
+/* ===========================================
+   Animations
+=========================================== */
+
+@keyframes mistOne{
+
+0%,100%{
+
+transform:
+translateX(0)
+translateY(0)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translateX(220px)
+translateY(40px)
+scale(1.08);
+
+}
+
+}
+
+@keyframes mistTwo{
+
+0%,100%{
+
+transform:
+translateX(0)
+translateY(0)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translateX(-250px)
+translateY(-30px)
+scale(1.05);
+
+}
+
+}
+
+@keyframes mistThree{
+
+0%,100%{
+
+transform:
+translate(0,0)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translate(160px,-60px)
+scale(1.10);
+
+}
+
+}
