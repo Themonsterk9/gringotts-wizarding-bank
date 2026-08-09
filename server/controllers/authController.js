@@ -177,9 +177,14 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     console.error("Login Error:", error);
 
+    const isDbTimeout = error.message && error.message.includes("buffering timed out");
+    const safeMessage = isDbTimeout
+      ? "Database connection timeout. Please ensure MongoDB Community Server is reachable."
+      : error.message || "Login failed. Please try again.";
+
     return res.status(500).json({
       success: false,
-      message: error.message,
+      message: safeMessage,
     });
   }
 };
