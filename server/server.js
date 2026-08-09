@@ -67,11 +67,31 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+import mongoose from "mongoose";
+
 // Path for serving static files (e.g., uploaded avatars)
 app.use(
   "/uploads",
   express.static(path.join(process.cwd(), "uploads"))
 );
+
+// DB Connection Check Middleware for API routes
+app.use("/api", async (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    try {
+      await connectDB();
+    } catch (e) {}
+  }
+
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      success: false,
+      message: "Database connection in progress or unreachable. Please ensure MongoDB Atlas Network Access allows 0.0.0.0/0.",
+    });
+  }
+
+  next();
+});
 
 // Routes
 app.use("/api/auth", authRoutes);
