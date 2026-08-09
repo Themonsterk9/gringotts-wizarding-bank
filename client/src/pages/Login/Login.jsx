@@ -58,10 +58,13 @@ const Login = () => {
           },
         });
       } else {
-        toast.error(
+        const errorMessage =
           error.response?.data?.message ||
-          "Login failed."
-        );
+          (error.message === "Network Error"
+            ? "Network Error. Unable to connect to Gringotts server."
+            : error.message || "Login failed.");
+
+        toast.error(errorMessage);
       }
     } finally {
       setLoading(false);

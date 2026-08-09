@@ -31,7 +31,7 @@ const allowedOrigins = [
 
 if (process.env.CLIENT_URL) {
   process.env.CLIENT_URL.split(",").forEach((url) => {
-    const trimmed = url.trim();
+    const trimmed = url.trim().replace(/\/+$/, "");
     if (trimmed) allowedOrigins.push(trimmed);
   });
 }
@@ -39,9 +39,17 @@ if (process.env.CLIENT_URL) {
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== "production") {
+      if (!origin) return callback(null, true);
+
+      const normalizedOrigin = origin.replace(/\/+$/, "");
+      const isAllowed = allowedOrigins.some(
+        (allowed) => allowed.replace(/\/+$/, "") === normalizedOrigin
+      );
+
+      if (isAllowed || process.env.NODE_ENV !== "production") {
         return callback(null, true);
       }
+
       return callback(null, true);
     },
     credentials: true,
