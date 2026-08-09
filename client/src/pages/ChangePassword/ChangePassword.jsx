@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import Layout from "../../components/layout/Layout";
 import Card from "../../components/common/Card";
+import AnimatedInput from "../../components/animation/AnimatedInput";
 
 import { changePassword } from "../../services/authService";
 
 import "./ChangePassword.css";
 
 const ChangePassword = () => {
-  const [showCurrent, setShowCurrent] = useState(false);
-  const [showNew, setShowNew] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -73,62 +69,38 @@ const ChangePassword = () => {
             className="change-password-form"
             onSubmit={handleSubmit}
           >
+            <AnimatedInput
+              type="password"
+              name="currentPassword"
+              placeholder="Current Password"
+              value={formData.currentPassword}
+              onChange={handleChange}
+              required
+              autoComplete="current-password"
+            />
 
-            <div className="password-group">
-              <input
-                type={showCurrent ? "text" : "password"}
-                name="currentPassword"
-                placeholder="Current Password"
-                value={formData.currentPassword}
-                onChange={handleChange}
-              />
+            <AnimatedInput
+              type="password"
+              name="newPassword"
+              placeholder="New Password"
+              value={formData.newPassword}
+              onChange={handleChange}
+              required
+              autoComplete="new-password"
+            />
 
-              <button
-                type="button"
-                className="eye-btn"
-                onClick={() => setShowCurrent(!showCurrent)}
-              >
-                {showCurrent ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
-
-            <div className="password-group">
-              <input
-                type={showNew ? "text" : "password"}
-                name="newPassword"
-                placeholder="New Password"
-                value={formData.newPassword}
-                onChange={handleChange}
-              />
-
-              <button
-                type="button"
-                className="eye-btn"
-                onClick={() => setShowNew(!showNew)}
-              >
-                {showNew ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
-
-            <div className="password-group">
-              <input
-                type={showConfirm ? "text" : "password"}
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-
-              <button
-                type="button"
-                className="eye-btn"
-                onClick={() => setShowConfirm(!showConfirm)}
-              >
-                {showConfirm ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
+            <AnimatedInput
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              autoComplete="new-password"
+            />
 
             <button
+              type="submit"
               className="change-password-btn"
               disabled={loading}
             >

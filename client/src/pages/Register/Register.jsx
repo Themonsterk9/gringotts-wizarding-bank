@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useAuth } from "../../context/AuthContext";
 import { registerUser } from "../../services/authService";
 
 import PageTransition from "../../components/animation/PageTransition";
@@ -14,7 +13,6 @@ import "./Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const [loading, setLoading] = useState(false);
 
@@ -39,11 +37,14 @@ const Register = () => {
     try {
       const data = await registerUser(formData);
 
-      login(data.user, data.token);
+      toast.success(data.message || "Verification code sent to your email.");
 
-      toast.success(data.message);
-
-      navigate("/dashboard");
+      navigate("/verify-otp", {
+        state: {
+          email: data.email || formData.email,
+          purpose: "register",
+        },
+      });
     } catch (error) {
       toast.error(
         error.response?.data?.message ||
@@ -99,6 +100,7 @@ const Register = () => {
               value={formData.password}
               onChange={handleChange}
               required
+              autoComplete="new-password"
             />
 
             <AnimatedButton

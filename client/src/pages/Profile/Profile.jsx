@@ -128,7 +128,11 @@ const Profile = () => {
 
                 {formData.avatar ? (
                   <img
-                    src={`http://localhost:5001${formData.avatar}`}
+                    src={
+                      formData.avatar.startsWith("http")
+                        ? formData.avatar
+                        : `${(import.meta.env.VITE_API_URL || "http://localhost:5001/api").replace(/\/api\/?$/, "")}${formData.avatar}`
+                    }
                     alt="Avatar"
                     className="avatar-image"
                   />

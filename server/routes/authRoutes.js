@@ -7,6 +7,12 @@ import {
   loginUser,
   verifyLoginOTP,
   resendLoginOTP,
+  forgotPassword,
+  verifyResetOTP,
+  resendResetOTP,
+  resetPassword,
+  verifyRegistrationOTP,
+  resendRegistrationOTP,
   getProfile,
   updateProfile,
   uploadAvatar,
@@ -18,6 +24,11 @@ import {
 import {
   registerValidation,
   loginValidation,
+  forgotPasswordValidation,
+  verifyResetOTPValidation,
+  resetPasswordValidation,
+  verifyRegistrationOTPValidation,
+  resendRegistrationOTPValidation,
   validate,
 } from "../validators/authValidator.js";
 
@@ -29,6 +40,22 @@ router.post(
   registerValidation,
   validate,
   registerUser
+);
+
+// Verify Registration OTP
+router.post(
+  "/verify-registration-otp",
+  verifyRegistrationOTPValidation,
+  validate,
+  verifyRegistrationOTP
+);
+
+// Resend Registration OTP
+router.post(
+  "/resend-registration-otp",
+  resendRegistrationOTPValidation,
+  validate,
+  resendRegistrationOTP
 );
 
 // Login
@@ -49,6 +76,38 @@ router.post(
 router.post(
   "/resend-login-otp",
   resendLoginOTP
+);
+
+// Forgot Password
+router.post(
+  "/forgot-password",
+  forgotPasswordValidation,
+  validate,
+  forgotPassword
+);
+
+// Verify Reset OTP
+router.post(
+  "/verify-reset-otp",
+  verifyResetOTPValidation,
+  validate,
+  verifyResetOTP
+);
+
+// Resend Reset OTP
+router.post(
+  "/resend-reset-otp",
+  forgotPasswordValidation,
+  validate,
+  resendResetOTP
+);
+
+// Reset Password
+router.post(
+  "/reset-password",
+  resetPasswordValidation,
+  validate,
+  resetPassword
 );
 
 // Get Logged-in Wizard Profile

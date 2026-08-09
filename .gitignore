@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+.env.local
+.env.*
+!.env.example
+
+# Production builds
+dist/
+build/
+
+# Server Uploads
+server/uploads/avatars/*
+!server/uploads/avatars/.gitkeep
+
+# Logs
+*.log
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

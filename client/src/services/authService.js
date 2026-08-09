@@ -10,6 +10,24 @@ export const registerUser = async (userData) => {
 };
 
 // =========================================
+// Verify Registration OTP
+// =========================================
+
+export const verifyRegistrationOTP = async (verifyData) => {
+  const response = await api.post("/auth/verify-registration-otp", verifyData);
+  return response.data;
+};
+
+// =========================================
+// Resend Registration OTP
+// =========================================
+
+export const resendRegistrationOTP = async (email) => {
+  const response = await api.post("/auth/resend-registration-otp", { email });
+  return response.data;
+};
+
+// =========================================
 // Login (Send OTP)
 // =========================================
 
@@ -116,5 +134,41 @@ export const updatePreferences = async (preferences) => {
     preferences
   );
 
+  return response.data;
+};
+
+// =========================================
+// Forgot Password (Send OTP)
+// =========================================
+
+export const forgotPassword = async (email) => {
+  const response = await api.post("/auth/forgot-password", { email });
+  return response.data;
+};
+
+// =========================================
+// Verify Reset Password OTP
+// =========================================
+
+export const verifyResetOTP = async (resetData) => {
+  const response = await api.post("/auth/verify-reset-otp", resetData);
+  return response.data;
+};
+
+// =========================================
+// Resend Reset Password OTP
+// =========================================
+
+export const resendResetOTP = async (email) => {
+  const response = await api.post("/auth/resend-reset-otp", { email });
+  return response.data;
+};
+
+// =========================================
+// Reset Password
+// =========================================
+
+export const resetPassword = async (resetData) => {
+  const response = await api.post("/auth/reset-password", resetData);
   return response.data;
 };

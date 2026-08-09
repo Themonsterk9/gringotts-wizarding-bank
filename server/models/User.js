@@ -42,14 +42,44 @@ const userSchema = new mongoose.Schema(
     },
 
     loginOTP: {
-  type: String,
-  default: "",
-},
+      type: String,
+      default: "",
+    },
 
-loginOTPExpiry: {
-  type: Date,
-  default: null,
-},
+    loginOTPExpiry: {
+      type: Date,
+      default: null,
+    },
+
+    resetOTP: {
+      type: String,
+      default: "",
+    },
+
+    resetOTPExpiry: {
+      type: Date,
+      default: null,
+    },
+
+    resetToken: {
+      type: String,
+      default: "",
+    },
+
+    resetTokenExpiry: {
+      type: Date,
+      default: null,
+    },
+
+    registrationOTP: {
+      type: String,
+      default: "",
+    },
+
+    registrationOTPExpiry: {
+      type: Date,
+      default: null,
+    },
 
     notificationPreferences: {
   transactionAlerts: {

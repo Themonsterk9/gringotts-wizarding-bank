@@ -11,7 +11,14 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
 
     if (storedUser && token) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Failed to parse stored user state:", error);
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        setUser(null);
+      }
     } else {
       localStorage.removeItem("user");
       localStorage.removeItem("token");

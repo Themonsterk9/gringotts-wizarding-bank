@@ -142,12 +142,6 @@ const Transfer = () => {
                  </div>
                 )}
 
-                {lookupLoading && (
-                <p className="lookup-loading">
-                 🔍 Looking up vault...
-                </p>
-              )}
-
                   {lookupError && (
                  <p className="lookup-error">
                 ❌ {lookupError}

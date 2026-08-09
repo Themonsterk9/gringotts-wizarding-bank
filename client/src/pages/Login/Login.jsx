@@ -49,10 +49,20 @@ const Login = () => {
       });
 
     } catch (error) {
-      toast.error(
-        error.response?.data?.message ||
-        "Login failed."
-      );
+      if (error.response?.data?.requiresVerification) {
+        toast.info(error.response.data.message || "Please verify your email address.");
+        navigate("/verify-otp", {
+          state: {
+            email: error.response.data.email || formData.email,
+            purpose: "register",
+          },
+        });
+      } else {
+        toast.error(
+          error.response?.data?.message ||
+          "Login failed."
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -112,7 +122,14 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  autoComplete="current-password"
                 />
+
+                <div className="forgot-password-container">
+                  <Link to="/forgot-password" className="forgot-password-link">
+                    Forgot your password?
+                  </Link>
+                </div>
 
                 <AnimatedButton
                   type="submit"

@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import "./Security.css";
 
 const Security = () => {
+  const navigate = useNavigate();
+
   return (
     <Layout>
 
@@ -27,7 +30,7 @@ const Security = () => {
 
           </div>
 
-          <button>
+          <button onClick={() => navigate("/change-password")}>
             Change Password
           </button>
 

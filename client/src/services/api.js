@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/api",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5001/api",
   headers: {
     "Content-Type": "application/json",
     "Cache-Control": "no-cache",
@@ -41,8 +41,9 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
 
-      // Avoid redirect loop if already on login page
-      if (window.location.pathname !== "/login") {
+      // Avoid redirect loop if on auth/reset flow pages
+      const publicAuthPages = ["/login", "/forgot-password", "/reset-password", "/verify-otp"];
+      if (!publicAuthPages.includes(window.location.pathname)) {
         window.location.href = "/login";
       }
     }

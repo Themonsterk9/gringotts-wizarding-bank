@@ -16,17 +16,38 @@ import vaultRoutes from "./routes/vaultRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import receiptRoutes from "./routes/receiptRoutes.js";
 
-// Load Environment Variables
-dotenv.config();
-
 // Connect Database
 connectDB();
 
 // Initialize Express
 const app = express();
 
-// Middleware
-app.use(cors());
+// CORS Configuration
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "http://127.0.0.1:5173",
+];
+
+if (process.env.CLIENT_URL) {
+  process.env.CLIENT_URL.split(",").forEach((url) => {
+    const trimmed = url.trim();
+    if (trimmed) allowedOrigins.push(trimmed);
+  });
+}
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== "production") {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
+
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -47,12 +68,20 @@ app.use("/api/vault", vaultRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/receipt", receiptRoutes);
 
+// Health Check Route
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Gringotts Wizarding Bank API is running",
+  });
+});
+
 // Home Route
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
     message: "🧙 Welcome to Gringotts Wizarding Bank API",
-    version: "1.0.0"
+    version: "1.0.0",
   });
 });
 
@@ -60,16 +89,16 @@ app.get("/", (req, res) => {
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: "Route Not Found"
+    message: "Route Not Found",
   });
 });
 
 // Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log("======================================");
   console.log("🏦 Gringotts Wizarding Bank API");
-  console.log(`🚀 Server Running : http://localhost:${PORT}`);
+  console.log(`🚀 Server Running on port ${PORT}`);
   console.log("======================================");
 });

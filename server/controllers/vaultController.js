@@ -44,11 +44,12 @@ export const getVault = async (req, res) => {
 export const depositMoney = async (req, res) => {
   try {
     const { amount, description } = req.body;
+    const numAmount = Number(amount);
 
-    if (!amount || amount <= 0) {
+    if (!amount || numAmount <= 0 || isNaN(numAmount) || !isFinite(numAmount)) {
       return res.status(400).json({
         success: false,
-        message: "Please enter a valid amount.",
+        message: "Please enter a valid positive amount.",
       });
     }
 
@@ -63,7 +64,7 @@ export const depositMoney = async (req, res) => {
       });
     }
 
-    vault.balance += Number(amount);
+    vault.balance += numAmount;
 
     await vault.save();
 
@@ -72,7 +73,7 @@ export const depositMoney = async (req, res) => {
       user: req.user._id,
       type: "Deposit",
       direction: "Credit",
-      amount: Number(amount),
+      amount: numAmount,
       receiverVault: vault.vaultNumber,
       description: description || "Deposit",
       status: "Success",
@@ -102,11 +103,12 @@ export const depositMoney = async (req, res) => {
 export const withdrawMoney = async (req, res) => {
   try {
     const { amount, description } = req.body;
+    const numAmount = Number(amount);
 
-    if (!amount || amount <= 0) {
+    if (!amount || numAmount <= 0 || isNaN(numAmount) || !isFinite(numAmount)) {
       return res.status(400).json({
         success: false,
-        message: "Please enter a valid amount.",
+        message: "Please enter a valid positive amount.",
       });
     }
 
@@ -121,14 +123,14 @@ export const withdrawMoney = async (req, res) => {
       });
     }
 
-    if (vault.balance < Number(amount)) {
+    if (vault.balance < numAmount) {
       return res.status(400).json({
         success: false,
         message: "Insufficient balance.",
       });
     }
 
-    vault.balance -= Number(amount);
+    vault.balance -= numAmount;
 
     await vault.save();
 
@@ -137,7 +139,7 @@ export const withdrawMoney = async (req, res) => {
       user: req.user._id,
       type: "Withdraw",
       direction: "Debit",
-      amount: Number(amount),
+      amount: numAmount,
       senderVault: vault.vaultNumber,
       description: description || "Withdrawal",
       status: "Success",
@@ -167,12 +169,13 @@ export const withdrawMoney = async (req, res) => {
 export const transferMoney = async (req, res) => {
   try {
     const { receiverVaultNumber, amount, description } = req.body;
+    const numAmount = Number(amount);
 
     // Validate input
-    if (!receiverVaultNumber || !amount || amount <= 0) {
+    if (!receiverVaultNumber || !amount || numAmount <= 0 || isNaN(numAmount) || !isFinite(numAmount)) {
       return res.status(400).json({
         success: false,
-        message: "Receiver vault number and a valid amount are required.",
+        message: "Receiver vault number and a valid positive amount are required.",
       });
     }
 
@@ -209,7 +212,7 @@ export const transferMoney = async (req, res) => {
     }
 
     // Check balance
-    if (senderVault.balance < Number(amount)) {
+    if (senderVault.balance < numAmount) {
       return res.status(400).json({
         success: false,
         message: "Insufficient balance.",
@@ -217,8 +220,8 @@ export const transferMoney = async (req, res) => {
     }
 
     // Update balances
-    senderVault.balance -= Number(amount);
-    receiverVault.balance += Number(amount);
+    senderVault.balance -= numAmount;
+    receiverVault.balance += numAmount;
 
     await senderVault.save();
     await receiverVault.save();
@@ -229,7 +232,7 @@ export const transferMoney = async (req, res) => {
       user: req.user._id,
       type: "Transfer",
       direction: "Debit",
-      amount: Number(amount),
+      amount: numAmount,
       senderVault: senderVault.vaultNumber,
       receiverVault: receiverVault.vaultNumber,
       description: description || "Vault Transfer",
@@ -242,7 +245,7 @@ export const transferMoney = async (req, res) => {
       user: receiverVault.user,
       type: "Transfer",
       direction: "Credit",
-      amount: Number(amount),
+      amount: numAmount,
       senderVault: senderVault.vaultNumber,
       receiverVault: receiverVault.vaultNumber,
       description: description || "Vault Transfer",
@@ -279,7 +282,7 @@ export const lookupVault = async (req, res) => {
       vaultNumber,
     }).populate("user", "wizardName email role");
 
-    if (!vault) {
+    if (!vault || !vault.user) {
       return res.status(404).json({
         success: false,
         message: "Vault not found.",
