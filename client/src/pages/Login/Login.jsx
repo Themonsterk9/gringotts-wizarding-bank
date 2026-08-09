@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 import { useAuth } from "../../context/AuthContext";
 import { loginUser } from "../../services/authService";
+import api from "../../services/api";
 
 import PageTransition from "../../components/animation/PageTransition";
 import AnimatedCard from "../../components/animation/AnimatedCard";
@@ -58,11 +59,20 @@ const Login = () => {
           },
         });
       } else {
-        const errorMessage =
-          error.response?.data?.message ||
-          (error.message === "Network Error"
-            ? "Network Error. Unable to connect to Gringotts server."
-            : error.message || "Login failed.");
+        let errorMessage = error.response?.data?.message;
+
+        if (!errorMessage) {
+          if (error.message === "Network Error") {
+            const currentBaseURL = api.defaults.baseURL || "";
+            if (currentBaseURL.includes("localhost") || currentBaseURL.includes("127.0.0.1")) {
+              errorMessage = "Backend URL is pointing to localhost. Please set VITE_API_URL in your Vercel project environment variables and redeploy.";
+            } else {
+              errorMessage = `Network Error: Unable to connect to server at ${currentBaseURL}. Please ensure Render backend is running.`;
+            }
+          } else {
+            errorMessage = error.message || "Login failed.";
+          }
+        }
 
         toast.error(errorMessage);
       }
