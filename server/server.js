@@ -95,6 +95,7 @@ app.get("/", (req, res) => {
 
 // 404 Route
 app.use((req, res) => {
+  console.warn(`[404 NOT FOUND] ${req.method} ${req.originalUrl || req.url}`);
   res.status(404).json({
     success: false,
     message: "Route Not Found",

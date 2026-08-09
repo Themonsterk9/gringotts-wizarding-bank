@@ -1,12 +1,38 @@
 import axios from "axios";
 
 const getBaseURL = () => {
-  let url = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
-  url = url.trim().replace(/\/+$/, "");
-  if (!url.endsWith("/api")) {
-    url += "/api";
+  const rawUrl = import.meta.env.VITE_API_URL;
+
+  if (!rawUrl) {
+    return "http://localhost:5001/api";
   }
-  return url;
+
+  try {
+    const parsed = new URL(rawUrl.trim());
+    let origin = parsed.origin;
+    let pathname = parsed.pathname.trim().replace(/\/+$/, "");
+
+    if (pathname === "" || pathname === "/") {
+      return `${origin}/api`;
+    }
+
+    if (pathname.endsWith("/api")) {
+      return `${origin}${pathname}`;
+    }
+
+    if (pathname.includes("/api/")) {
+      const apiIndex = pathname.indexOf("/api/");
+      return `${origin}${pathname.substring(0, apiIndex + 4)}`;
+    }
+
+    return `${origin}/api`;
+  } catch (e) {
+    let cleanUrl = rawUrl.trim().replace(/\/+$/, "");
+    if (!cleanUrl.endsWith("/api")) {
+      cleanUrl += "/api";
+    }
+    return cleanUrl;
+  }
 };
 
 const api = axios.create({
