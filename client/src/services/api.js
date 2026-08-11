@@ -4,6 +4,9 @@ const getBaseURL = () => {
   const rawUrl = import.meta.env.VITE_API_URL;
 
   if (!rawUrl) {
+    if (typeof window !== "undefined" && window.location.hostname.includes("vercel.app")) {
+      return "https://gringotts-wizarding-bank.onrender.com/api";
+    }
     return "http://localhost:5001/api";
   }
 
