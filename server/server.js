@@ -21,6 +21,7 @@ connectDB();
 
 // Initialize Express
 const app = express();
+app.set("trust proxy", 1);
 
 // CORS Configuration
 const allowedOrigins = [
