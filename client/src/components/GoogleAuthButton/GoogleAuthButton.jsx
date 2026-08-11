@@ -9,7 +9,14 @@ const GoogleAuthButton = ({ text = "Continue with Google", disabled = false }) =
     if (loading || disabled) return;
     setLoading(true);
 
-    const baseURL = api.defaults.baseURL || "http://localhost:5001/api";
+    let baseURL = api.defaults.baseURL;
+    if (!baseURL || baseURL.includes("localhost") || baseURL.includes("127.0.0.1")) {
+      if (typeof window !== "undefined" && window.location.hostname.includes("vercel.app")) {
+        baseURL = "https://gringotts-wizarding-bank.onrender.com/api";
+      } else {
+        baseURL = "http://localhost:5001/api";
+      }
+    }
     const googleEndpoint = `${baseURL.replace(/\/+$/, "")}/auth/google`;
 
     window.location.href = googleEndpoint;

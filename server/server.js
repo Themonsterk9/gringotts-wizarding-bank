@@ -40,6 +40,7 @@ if (process.env.CLIENT_URL) {
 app.use(
   cors({
     origin: (origin, callback) => {
+      // Allow server-to-server requests (no origin)
       if (!origin) return callback(null, true);
 
       const normalizedOrigin = origin.replace(/\/+$/, "");
@@ -47,11 +48,16 @@ app.use(
         (allowed) => allowed.replace(/\/+$/, "") === normalizedOrigin
       );
 
-      if (isAllowed || process.env.NODE_ENV !== "production") {
+      if (isAllowed) {
         return callback(null, true);
       }
 
-      return callback(null, true);
+      // In development, allow all origins
+      if (process.env.NODE_ENV !== "production") {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS: Origin ${origin} is not allowed.`));
     },
     credentials: true,
   })

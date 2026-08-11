@@ -131,7 +131,12 @@ const Profile = () => {
                     src={
                       formData.avatar.startsWith("http")
                         ? formData.avatar
-                        : `${(import.meta.env.VITE_API_URL || "http://localhost:5001/api").replace(/\/api\/?$/, "")}${formData.avatar}`
+                        : `${(import.meta.env.VITE_API_URL
+                            ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, "")
+                            : (typeof window !== "undefined" && window.location.hostname.includes("vercel.app")
+                                ? "https://gringotts-wizarding-bank.onrender.com"
+                                : "http://localhost:5001")
+                          )}${formData.avatar}`
                     }
                     alt="Avatar"
                     className="avatar-image"
