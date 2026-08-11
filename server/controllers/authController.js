@@ -1,5 +1,6 @@
 import path from "path";
 import crypto from "crypto";
+import { OAuth2Client } from "google-auth-library";
 import User from "../models/User.js";
 import Vault from "../models/Vault.js";
 
@@ -984,4 +985,126 @@ export const resendRegistrationOTP = async (req, res) => {
     });
   }
 };
+
+// =========================================
+// @desc Verify Google OAuth Code & authenticate
+// @route POST /api/auth/google/verify
+// @access Public
+// =========================================
+export const googleVerify = async (req, res) => {
+  try {
+    const { code } = req.body;
+
+    if (!code) {
+      return res.status(400).json({
+        success: false,
+        message: "Authorization code is required.",
+      });
+    }
+
+    const clientId = process.env.GOOGLE_CLIENT_ID || "215759334057-r484e90uo3hnscqiefp9c5j8vd6bhbad.apps.googleusercontent.com";
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+
+    // Use "postmessage" as the redirect URI when using the popup code client.
+    // In GIS popup flow, google.accounts.oauth2.initCodeClient expects redirect_uri: "postmessage".
+    const client = new OAuth2Client(clientId, clientSecret, "postmessage");
+
+    // Exchange authorization code for tokens
+    const { tokens } = await client.getToken(code);
+    client.setCredentials(tokens);
+
+    let googleUser = {};
+    if (tokens.id_token) {
+      const ticket = await client.verifyIdToken({
+        idToken: tokens.id_token,
+        audience: clientId,
+      });
+      const payload = ticket.getPayload();
+      googleUser = {
+        googleId: payload.sub,
+        email: payload.email,
+        name: payload.name || payload.given_name || "Wizard",
+        picture: payload.picture || "",
+      };
+    } else {
+      const userinfoRes = await client.request({
+        url: "https://www.googleapis.com/oauth2/v3/userinfo",
+      });
+      googleUser = {
+        googleId: userinfoRes.data.sub,
+        email: userinfoRes.data.email,
+        name: userinfoRes.data.name || userinfoRes.data.given_name || "Wizard",
+        picture: userinfoRes.data.picture || "",
+      };
+    }
+
+    if (!googleUser.email) {
+      return res.status(400).json({
+        success: false,
+        message: "Unable to retrieve email from Google account.",
+      });
+    }
+
+    const normalizedEmail = googleUser.email.trim().toLowerCase();
+
+    let user = await User.findOne({
+      $or: [{ googleId: googleUser.googleId }, { email: normalizedEmail }],
+    });
+
+    if (user) {
+      if (!user.googleId) {
+        user.googleId = googleUser.googleId;
+      }
+      if (user.authProvider !== "google" && !user.password) {
+        user.authProvider = "google";
+      }
+      if (!user.isVerified) {
+        user.isVerified = true;
+      }
+      if (!user.avatar && googleUser.picture) {
+        user.avatar = googleUser.picture;
+      }
+      await user.save();
+    } else {
+      let wizardName =
+        googleUser.name && googleUser.name.trim().length >= 3
+          ? googleUser.name.trim()
+          : normalizedEmail.split("@")[0] || "Wizard";
+
+      if (wizardName.length < 3) {
+        wizardName = wizardName + " Wizard";
+      }
+
+      user = await User.create({
+        wizardName: wizardName.substring(0, 30),
+        email: normalizedEmail,
+        googleId: googleUser.googleId,
+        authProvider: "google",
+        avatar: googleUser.picture || "",
+        isVerified: true,
+      });
+
+      await Vault.create({
+        user: user._id,
+        vaultNumber: generateVaultNumber(),
+      });
+    }
+
+    const token = generateToken(user._id);
+
+    return res.status(200).json({
+      success: true,
+      message: "Successfully authenticated with Google.",
+      token,
+    });
+  } catch (error) {
+    console.error("Google verify controller error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Google verification failed. Please try again.",
+      error: error.message,
+    });
+  }
+};
+
 

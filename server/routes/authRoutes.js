@@ -19,6 +19,7 @@ import {
   changePassword,
   getPreferences,
   updatePreferences,
+  googleVerify,
 } from "../controllers/authController.js";
 
 import {
@@ -33,6 +34,10 @@ import {
 } from "../validators/authValidator.js";
 
 const router = express.Router();
+
+// Google OAuth Verification Route
+router.post("/google/verify", googleVerify);
+
 
 // Register
 router.post(
