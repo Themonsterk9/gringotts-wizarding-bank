@@ -987,15 +987,31 @@ export const resendRegistrationOTP = async (req, res) => {
 };
 
 // =========================================
+// Helper: Get Google OAuth Callback URL
+// =========================================
+const getGoogleCallbackUrl = (req) => {
+  if (process.env.GOOGLE_CALLBACK_URL && process.env.GOOGLE_CALLBACK_URL.trim()) {
+    return process.env.GOOGLE_CALLBACK_URL.trim();
+  }
+
+  if (req) {
+    const host = req.get("host") || "";
+    if (host.includes("onrender.com") || process.env.NODE_ENV === "production") {
+      return `https://${host}/api/auth/google/callback`;
+    }
+    return `${req.protocol}://${host}/api/auth/google/callback`;
+  }
+
+  return "https://gringotts-wizarding-bank.onrender.com/api/auth/google/callback";
+};
+
+// =========================================
 // Helper: Get Google OAuth Client
 // =========================================
 const getGoogleOAuthClient = (redirectUriOverride) => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-  const redirectUri =
-    redirectUriOverride ||
-    process.env.GOOGLE_CALLBACK_URL ||
-    "http://localhost:5001/api/auth/google/callback";
+  const redirectUri = redirectUriOverride || getGoogleCallbackUrl();
 
   return new OAuth2Client(clientId, clientSecret, redirectUri);
 };
@@ -1015,10 +1031,7 @@ export const googleAuth = (req, res) => {
       });
     }
 
-    const callbackUrl =
-      process.env.GOOGLE_CALLBACK_URL ||
-      `${req.protocol}://${req.get("host")}/api/auth/google/callback`;
-
+    const callbackUrl = getGoogleCallbackUrl(req);
     const client = getGoogleOAuthClient(callbackUrl);
 
     const state = crypto.randomBytes(16).toString("hex");
@@ -1038,6 +1051,7 @@ export const googleAuth = (req, res) => {
       ],
       state,
       prompt: "select_account",
+      redirect_uri: callbackUrl,
     });
 
     return res.redirect(authUrl);
@@ -1087,10 +1101,7 @@ export const googleAuthCallback = async (req, res) => {
     }
     res.clearCookie("oauth_state");
 
-    const callbackUrl =
-      process.env.GOOGLE_CALLBACK_URL ||
-      `${req.protocol}://${req.get("host")}/api/auth/google/callback`;
-
+    const callbackUrl = getGoogleCallbackUrl(req);
     const client = getGoogleOAuthClient(callbackUrl);
 
     const { tokens } = await client.getToken(code);
