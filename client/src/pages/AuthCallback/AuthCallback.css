@@ -1,0 +1,59 @@
+/* ===========================================
+   Auth Callback Page Styling
+=========================================== */
+
+.auth-callback-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.auth-callback-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 30px;
+  border-radius: 22px;
+  background: rgba(18, 18, 28, 0.85);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.magic-spinner {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 24px;
+  border: 3px solid rgba(255, 215, 0, 0.2);
+  border-top-color: #ffd700;
+  border-right-color: #b8860b;
+  border-radius: 50%;
+  animation: magic-spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes magic-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.callback-title {
+  color: #ffd700;
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.callback-subtitle {
+  color: #d1d5db;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

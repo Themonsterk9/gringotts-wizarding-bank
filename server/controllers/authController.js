@@ -1,5 +1,6 @@
 import path from "path";
 import crypto from "crypto";
+import { OAuth2Client } from "google-auth-library";
 import User from "../models/User.js";
 import Vault from "../models/Vault.js";
 
@@ -982,5 +983,204 @@ export const resendRegistrationOTP = async (req, res) => {
       success: false,
       message: error.message,
     });
+  }
+};
+
+// =========================================
+// Helper: Get Google OAuth Client
+// =========================================
+const getGoogleOAuthClient = (redirectUriOverride) => {
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const redirectUri =
+    redirectUriOverride ||
+    process.env.GOOGLE_CALLBACK_URL ||
+    "http://localhost:5001/api/auth/google/callback";
+
+  return new OAuth2Client(clientId, clientSecret, redirectUri);
+};
+
+// =========================================
+// @desc Initiate Google OAuth
+// @route GET /api/auth/google
+// @access Public
+// =========================================
+export const googleAuth = (req, res) => {
+  try {
+    const clientId = process.env.GOOGLE_CLIENT_ID;
+    if (!clientId) {
+      return res.status(500).json({
+        success: false,
+        message: "Google OAuth is not configured on server. GOOGLE_CLIENT_ID is missing.",
+      });
+    }
+
+    const callbackUrl =
+      process.env.GOOGLE_CALLBACK_URL ||
+      `${req.protocol}://${req.get("host")}/api/auth/google/callback`;
+
+    const client = getGoogleOAuthClient(callbackUrl);
+
+    const state = crypto.randomBytes(16).toString("hex");
+
+    res.cookie("oauth_state", state, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 10 * 60 * 1000,
+      sameSite: "lax",
+    });
+
+    const authUrl = client.generateAuthUrl({
+      access_type: "offline",
+      scope: [
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+      ],
+      state,
+      prompt: "select_account",
+    });
+
+    return res.redirect(authUrl);
+  } catch (error) {
+    console.error("Google Auth Init Error:", error);
+    const frontendUrl = process.env.CLIENT_URL
+      ? process.env.CLIENT_URL.split(",")[0].trim().replace(/\/+$/, "")
+      : "http://localhost:5173";
+    return res.redirect(
+      `${frontendUrl}/login?error=${encodeURIComponent("Failed to initialize Google login.")}`
+    );
+  }
+};
+
+// =========================================
+// @desc Google OAuth Callback
+// @route GET /api/auth/google/callback
+// @access Public
+// =========================================
+export const googleAuthCallback = async (req, res) => {
+  const frontendUrl = process.env.CLIENT_URL
+    ? process.env.CLIENT_URL.split(",")[0].trim().replace(/\/+$/, "")
+    : "http://localhost:5173";
+
+  try {
+    const { code, state, error: googleError } = req.query;
+
+    if (googleError) {
+      console.warn("Google OAuth cancelled or denied:", googleError);
+      return res.redirect(
+        `${frontendUrl}/login?error=${encodeURIComponent("Google login was cancelled or denied.")}`
+      );
+    }
+
+    if (!code) {
+      return res.redirect(
+        `${frontendUrl}/login?error=${encodeURIComponent("Authorization code missing from Google response.")}`
+      );
+    }
+
+    const savedState = req.cookies?.oauth_state;
+    if (savedState && state && savedState !== state) {
+      console.warn("OAuth state mismatch!");
+      return res.redirect(
+        `${frontendUrl}/login?error=${encodeURIComponent("Invalid OAuth state. Please try again.")}`
+      );
+    }
+    res.clearCookie("oauth_state");
+
+    const callbackUrl =
+      process.env.GOOGLE_CALLBACK_URL ||
+      `${req.protocol}://${req.get("host")}/api/auth/google/callback`;
+
+    const client = getGoogleOAuthClient(callbackUrl);
+
+    const { tokens } = await client.getToken(code);
+    client.setCredentials(tokens);
+
+    let googleUser = {};
+    if (tokens.id_token) {
+      const ticket = await client.verifyIdToken({
+        idToken: tokens.id_token,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      googleUser = {
+        googleId: payload.sub,
+        email: payload.email,
+        name: payload.name || payload.given_name || "Wizard",
+        picture: payload.picture || "",
+      };
+    } else {
+      const userinfoRes = await client.request({
+        url: "https://www.googleapis.com/oauth2/v3/userinfo",
+      });
+      googleUser = {
+        googleId: userinfoRes.data.sub,
+        email: userinfoRes.data.email,
+        name: userinfoRes.data.name || userinfoRes.data.given_name || "Wizard",
+        picture: userinfoRes.data.picture || "",
+      };
+    }
+
+    if (!googleUser.email) {
+      return res.redirect(
+        `${frontendUrl}/login?error=${encodeURIComponent("Unable to retrieve email from Google account.")}`
+      );
+    }
+
+    const normalizedEmail = googleUser.email.trim().toLowerCase();
+
+    let user = await User.findOne({
+      $or: [{ googleId: googleUser.googleId }, { email: normalizedEmail }],
+    });
+
+    if (user) {
+      if (!user.googleId) {
+        user.googleId = googleUser.googleId;
+      }
+      if (user.authProvider !== "google" && !user.password) {
+        user.authProvider = "google";
+      }
+      if (!user.isVerified) {
+        user.isVerified = true;
+      }
+      if (!user.avatar && googleUser.picture) {
+        user.avatar = googleUser.picture;
+      }
+      await user.save();
+    } else {
+      let wizardName =
+        googleUser.name && googleUser.name.trim().length >= 3
+          ? googleUser.name.trim()
+          : normalizedEmail.split("@")[0] || "Wizard";
+
+      if (wizardName.length < 3) {
+        wizardName = wizardName + " Wizard";
+      }
+
+      user = await User.create({
+        wizardName: wizardName.substring(0, 30),
+        email: normalizedEmail,
+        googleId: googleUser.googleId,
+        authProvider: "google",
+        avatar: googleUser.picture || "",
+        isVerified: true,
+      });
+
+      await Vault.create({
+        user: user._id,
+        vaultNumber: generateVaultNumber(),
+      });
+    }
+
+    const token = generateToken(user._id);
+
+    return res.redirect(
+      `${frontendUrl}/auth/callback?token=${encodeURIComponent(token)}`
+    );
+  } catch (error) {
+    console.error("Google Auth Callback Error:", error);
+    return res.redirect(
+      `${frontendUrl}/login?error=${encodeURIComponent("Google authentication failed. Please try again.")}`
+    );
   }
 };
