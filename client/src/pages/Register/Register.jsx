@@ -8,7 +8,6 @@ import PageTransition from "../../components/animation/PageTransition";
 import AnimatedCard from "../../components/animation/AnimatedCard";
 import AnimatedButton from "../../components/animation/AnimatedButton";
 import AnimatedInput from "../../components/animation/AnimatedInput";
-import GoogleAuthButton from "../../components/GoogleAuthButton/GoogleAuthButton";
 
 import "./Register.css";
 
@@ -114,12 +113,6 @@ const Register = () => {
                 : "✨ Create Vault"}
             </AnimatedButton>
           </form>
-
-          <div className="auth-divider">
-            <span>OR</span>
-          </div>
-
-          <GoogleAuthButton text="Continue with Google" disabled={loading} />
 
           <p className="login-link">
             Already have a vault?{" "}

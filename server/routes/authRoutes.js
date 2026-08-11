@@ -19,8 +19,6 @@ import {
   changePassword,
   getPreferences,
   updatePreferences,
-  googleAuth,
-  googleAuthCallback,
 } from "../controllers/authController.js";
 
 import {
@@ -35,10 +33,6 @@ import {
 } from "../validators/authValidator.js";
 
 const router = express.Router();
-
-// Google OAuth
-router.get("/google", googleAuth);
-router.get("/google/callback", googleAuthCallback);
 
 // Register
 router.post(

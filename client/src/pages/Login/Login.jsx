@@ -12,7 +12,6 @@ import AnimatedButton from "../../components/animation/AnimatedButton";
 import AnimatedInput from "../../components/animation/AnimatedInput";
 
 import LoginArtwork from "../../components/animationHome/LoginArtwork";
-import GoogleAuthButton from "../../components/GoogleAuthButton/GoogleAuthButton";
 
 import "./Login.css";
 
@@ -156,12 +155,6 @@ const Login = () => {
                 </AnimatedButton>
 
               </form>
-
-              <div className="auth-divider">
-                <span>OR</span>
-              </div>
-
-              <GoogleAuthButton text="Continue with Google" disabled={loading} />
 
               <p className="register-link">
                 Don't have a vault?{" "}

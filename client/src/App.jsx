@@ -17,7 +17,6 @@ import Settings from "./pages/Settings/Settings";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import VerifyOTP from "./pages/VerifyOTP/VerifyOTP";
 import Security from "./pages/Security/Security";
-import AuthCallback from "./pages/AuthCallback/AuthCallback";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -33,7 +32,6 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/auth/callback" element={<AuthCallback />} />
 
       {/* Protected Routes */}
       <Route
